@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+
+:root {
+    --bg-color: white;
+    --main-color: black;
+}
+
+body {
+    display: flex;
+    transition: background 5s linear;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color);
+    /* Fallback */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.night {
+    --bg-color: #121212;
+    --main-color: white;
+}
+
+.day {
+    --bg-color: #ffeaa7;
+    --main-color: #2d3436;
+}
+
+.evening {
+    --bg-color: #686de0;
+    --main-color: #dfe4ea;
+}
+
+main {
+    margin: auto;
+}
+
+#clock {
+    font-size: 6em;
+    transition: color 1s linear;
+    color: var(--main-color);
+    font-weight: 100;
+}
