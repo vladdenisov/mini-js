@@ -45,21 +45,25 @@ main {
     display: flex;
     flex-direction: column;
 }
-#date {
-    font-size: 2em;
-    text-align: center;
-    transition: color 1s linear;
-    color: var(--main-color);
-    font-weight: 100;
-}
-#clock {
-    font-size: 7em;
+
+span {
     text-align: center;
     transition: color 1s linear;
     color: var(--main-color);
     font-weight: 100;
 }
 
+#date {
+    font-size: 2em;
+}
+
+#clock {
+    font-size: 7em;
+}
+
+#weather {
+    font-size: 1.8em;
+}
 @media (max-width: 480px) {
     #clock { 
         font-size: 18vw;

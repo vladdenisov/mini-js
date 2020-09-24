@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 const checkTheme = date => {
   let h = parseInt(date.getHours())
-  console.log(h)
   if (h > 6 && h < 12) {
     if (!document.getElementById('body').classList.contains('morning')) {
       document.getElementById('body').classList = []
@@ -31,6 +30,21 @@ const setDate = date => {
     weekday: 'short'
   })
 }
+
+const getWeather = async () => {
+  let lat_long = await fetch('https://ipinfo.io/?token=3f3bf137e9180f')
+    .then(res => res.json())
+    .then(res => res.loc)
+  if (!lat_long) return
+  let data = await fetch(
+    'https://api.weatherapi.com/v1/current.json?key=7be83a3788e645f481e202959202409&q=' +
+      lat_long
+  ).then(res => res.json())
+  if (!data) return
+  let weather_span = document.getElementById('weather')
+  weather_span.innerText = `${data.current.condition.text}, ${data.current.temp_c}°C, Feels like ${data.current.feelslike_c}°C`
+}
+getWeather()
 document.addEventListener('DOMContentLoaded', () => {
   let vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
@@ -53,9 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
       m = date.getMinutes()
       s = date.getSeconds()
       checkTheme(date)
-      // clock_span.innerText = `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}:${
-      //   s < 10 ? '0' + s : s
-      // }`
       clock_span.innerText = date.toLocaleTimeString()
       document.title = clock_span.innerText
     }, 1000)
