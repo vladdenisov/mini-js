@@ -49,11 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
   let clock_span = document.getElementById('clock')
-
   let date = new Date()
   let h = date.getHours()
   let m = date.getMinutes()
   let s = date.getSeconds()
+  checkTheme(date)
+  clock_span.innerText = date.toLocaleTimeString()
+  document.title = clock_span.innerText
   setDate(date)
   setTimeout(
     () => setDate(date),
