@@ -36,6 +36,10 @@ body {
     --main-color: #dfe4ea;
 }
 
+.morning { 
+    --bg-color: #4bcffa;
+}
+
 main {
     margin: auto;
 }
