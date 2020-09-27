@@ -7,7 +7,7 @@
 
 body {
   display: flex;
-  transition: background 5s linear;
+  transition: background 2s linear;
   justify-content: center;
   align-items: center;
   background: var(--bg-color);
@@ -117,7 +117,7 @@ span {
 }
 
 input[type='checkbox']:checked + #switch::after {
-    left: 41px;
+    left: 42px;
 }
 input[type='checkbox'] {
     display: none;
