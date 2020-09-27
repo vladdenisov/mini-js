@@ -1,24 +1,26 @@
+/* eslint-disable prefer-let/prefer-let */
 /* eslint-disable node/no-unsupported-features/es-syntax */
 /* eslint-disable camelcase */
+
+// Simple State management
 const useState = (defaultValue, name = 'default') => {
-  let state = JSON.parse(localStorage.getItem(name)) || defaultValue || {}
+  const state = JSON.parse(localStorage.getItem(name)) || defaultValue || {}
+  const subscribers = []
   state.subscribe = callback => subscribers.push(callback)
-  console.log(state)
-  let subscribers = []
-  let setState = new_state => {
-    state = { ...new_state }
+  const setState = value => {
+    state.value = value
+    // Save state to LocalStorage
     localStorage.setItem(name, JSON.stringify(state))
-    state.subscribe = callback => subscribers.push(callback)
+    // Run 'onchange' callbacks
     subscribers.forEach(e => e(state))
   }
+  // Return current state and state setter
   return [state, setState]
 }
 
-let [units, setUnits] = useState({ value: 'c' }, 'units')
-let [time, setTime] = useState({ value: false }, 'time')
+const [units, setUnits] = useState({ value: 'c' }, 'units')
+const [time, setTime] = useState({ value: false }, 'time')
 
-time.subscribe(state => (time = state))
-units.subscribe(state => (units = state))
 const checkTheme = date => {
   let h = parseInt(date.getHours())
   if (h > 6 && h < 12) {
@@ -41,6 +43,7 @@ const checkTheme = date => {
     document.getElementById('body').classList.add('day')
   }
 }
+
 const setDate = date => {
   let date_span = document.getElementById('date')
   date_span.innerText = date.toLocaleDateString('default', {
@@ -71,6 +74,7 @@ const getWeather = async () => {
   setWeather(data)
   units.subscribe(() => setWeather(data))
 }
+
 const setWeather = data => {
   let weather_span = document.getElementById('weather')
   weather_span.innerText = `${data.current.condition.text}, ${
@@ -89,18 +93,23 @@ const setTimeToClock = (date, span) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('units').addEventListener('change', e => {
-    setUnits({ value: `${e.target.checked ? 'f' : 'c'}` })
+    setUnits(`${e.target.checked ? 'f' : 'c'}`)
   })
   document.getElementById('units').checked = units.value === 'f'
+
   document.getElementById('time').addEventListener('change', e => {
-    setTime({ value: e.target.checked })
+    setTime(e.target.checked)
   })
   document.getElementById('time').checked = time.value
+
   let vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
+
   let clock_span = document.getElementById('clock')
   let date = new Date()
+
   checkTheme(date)
+
   setTimeout(() => {
     date = new Date()
     setTimeToClock(date, clock_span)
