@@ -1,74 +1,142 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
 
 :root {
-    --bg-color: white;
-    --main-color: black;
+  --bg-color: white;
+  --main-color: black;
 }
 
 body {
-    display: flex;
-    transition: background 5s linear;
-    justify-content: center;
-    align-items: center;
-    background: var(--bg-color);
-    /* Fallback */
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-
+  display: flex;
+  transition: background 5s linear;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-color);
+  /* Fallback */
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 .night {
-    --bg-color: #121212;
-    --main-color: white;
+  --bg-color: #121212;
+  --main-color: white;
 }
 
 .day {
-    --bg-color: #ffeaa7;
-    --main-color: #2d3436;
+  --bg-color: #ffeaa7;
+  --main-color: #2d3436;
 }
 
 .evening {
-    --bg-color: #686de0;
-    --main-color: #dfe4ea;
+  --bg-color: #686de0;
+  --main-color: #dfe4ea;
 }
 
-.morning { 
-    --bg-color: #4bcffa;
+.morning {
+  --bg-color: #4bcffa;
 }
 
 main {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 span {
-    text-align: center;
-    transition: color 1s linear;
-    color: var(--main-color);
-    font-weight: 100;
+  text-align: center;
+  transition: color 1s linear;
+  color: var(--main-color);
+  font-weight: 100;
 }
 
 #date {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 #clock {
-    font-size: 7em;
+  font-size: 7em;
 }
 
 #weather {
-    font-size: 1.8em;
+  font-size: 1.8em;
+}
+*
+{
+    -webkit-tap-highlight-color: transparent;
+}
+
+#toggle_checkbox
+{
+    display: none;
+}
+#controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    float: right;
+    top: 5vh;
+    right: 5vw;
+}
+#units-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    margin-bottom: 10px;
+}
+#controls span {
+    margin: auto 10px;
+}
+#switch {
+    position : relative ;
+    display : inline-block;
+    width : 70px;
+    cursor: pointer;
+    height : 30px;
+    border: 2px solid var(--main-color);
+    background-color: transparent;
+    border-radius: 20px;
+}
+#switch::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--main-color);
+    background-color: transparent;
+    top: 2px;
+    left: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+input[type='checkbox']:checked + #switch::after {
+    left: 41px;
+}
+input[type='checkbox'] {
+    display: none;
+}
+#time-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
 }
 @media (max-width: 480px) {
-    #clock { 
-        font-size: 18vw;
-    }
-    #date {
-        font-size: 8vw;
-    }
+  #clock {
+    font-size: 18vw;
   }
+  #date {
+    font-size: 8vw;
+  }
+  #controls {
+    top: 2vh;
+    right: 2vw;
+}
+}
