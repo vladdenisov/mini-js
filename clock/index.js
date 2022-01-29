@@ -92,6 +92,25 @@ const setTimeToClock = (date, span) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '').split('-')
+  console.log(hash)
+  if (hash.includes('notion')) {
+    document.getElementsByTagName('body')[0].classList.add('notion')
+    document.getElementById('controls').style = 'display: none'
+    if (hash.includes('dark')) {
+      document.getElementsByTagName('body')[0].classList.add('night')
+    }
+    if (hash.includes('c')) {
+      setUnits('c')
+    } else {
+      setUnits('f')
+    }
+    if (hash.includes('24')) {
+      setTime(true)
+    } else {
+      setTime(false)
+    }
+  }
   document.getElementById('units').addEventListener('change', e => {
     setUnits(`${e.target.checked ? 'f' : 'c'}`)
   })
@@ -107,17 +126,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let clock_span = document.getElementById('clock')
   let date = new Date()
-
-  checkTheme(date)
+  if (!window.location.hash.includes('notion-dark')) {
+    checkTheme(date)
+  }
 
   setTimeout(() => {
     date = new Date()
     setTimeToClock(date, clock_span)
-    setInterval(() => {
-      date = new Date()
-      checkTheme(date)
-      setTimeToClock(date, clock_span)
-    }, 1000)
+    if (!window.location.hash.includes('notion-dark')) {
+      setInterval(() => {
+        date = new Date()
+        checkTheme(date)
+        setTimeToClock(date, clock_span)
+      }, 1000)
+    } else {
+      setInterval(() => {
+        date = new Date()
+        setTimeToClock(date, clock_span)
+      }, 1000)
+    }
     setDate(date)
     getWeather()
   }, 1000 - Math.floor(date.getMilliseconds()))

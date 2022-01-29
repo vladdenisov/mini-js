@@ -140,3 +140,33 @@ input[type='checkbox'] {
     right: 2vw;
 }
 }
+
+@media (max-width: 480px) and (max-height: 450px) {
+  #switch {
+      position : relative ;
+      display : inline-block;
+      width : 23px;
+      cursor: pointer;
+      height : 15px;
+      border: 1px solid var(--main-color);
+      background-color: transparent;
+      border-radius: 20px;
+  }
+  #switch::after {
+      content: '';
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1px solid var(--main-color);
+      background-color: transparent;
+      top: 1px;
+      left: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+  }
+
+  input[type='checkbox']:checked + #switch::after {
+      left: 9.5px;
+  }
+}
